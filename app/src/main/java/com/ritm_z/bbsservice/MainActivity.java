@@ -14,15 +14,16 @@ import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
 
 public class MainActivity extends AppCompatActivity {
-    BluetoothSPP bt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Toast.makeText(getApplicationContext(),"onCreate MainActivity",Toast.LENGTH_LONG).show();
+
         stopPreviouslyStartedService();
 
-        bt = new BluetoothSPP(getApplicationContext());
+        BluetoothSPP bt = new BluetoothSPP(getApplicationContext());
 
         if(bt.isBluetoothEnabled()) {
             bt.setupService();
@@ -41,9 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
                         //start service only if appropriate dev is found
                         startService(new Intent(this, RZ_BarcodeService.class));
-                        onBackPressed();
+                        finish();
+                        return;
                     }
                 }
+                Toast.makeText(getApplicationContext(),"Не найдено ранее спаренных устройств R1820",Toast.LENGTH_LONG).show();
+                finish();
             } else {
                 Toast.makeText(getApplicationContext(),"Не найдено ранее спаренных устройств",Toast.LENGTH_LONG).show();
                 finish();
@@ -65,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
         }
         if(serviceIsRunning) {
             stopService(new Intent(MainActivity.this, RZ_BarcodeService.class));
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

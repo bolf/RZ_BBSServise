@@ -39,7 +39,7 @@ public class RZ_BarcodeService extends Service {
             ntnt.setAction("com.ritm_z.barcode.RECEIVED");
             ntnt.putExtra("text", message); //main text
             ntnt.putExtra("base", "");
-            ntnt.putExtra("title", "title"); //for action recognition
+            ntnt.putExtra("title", "считан штрих-код"); //for action recognition
             sendBroadcast(ntnt);
 
             //Toast.makeText(getApplicationContext(),"and:".concat(message),Toast.LENGTH_SHORT).show();
