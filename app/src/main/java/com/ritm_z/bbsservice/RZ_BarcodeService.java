@@ -55,9 +55,9 @@ public class RZ_BarcodeService extends Service {
         Set<BluetoothDevice> pairedDevices = mBtAdapter.getBondedDevices();
 
         for (BluetoothDevice device : pairedDevices) {
-            if (device.getName().contains("R1820")) {
+            if (device.getName().contains("R1820") || device.getName().toLowerCase().contains("scanner")) {
                 bt.connect(device.getAddress());
-                bt.autoConnect("R1820");
+                bt.autoConnect(device.getName());
             }
         }
 

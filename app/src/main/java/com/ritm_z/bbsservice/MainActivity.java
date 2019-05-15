@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
             if (pairedDevices.size() > 0) {
                 for (BluetoothDevice device : pairedDevices) {
                     if(device.getName().contains("R1820") || device.getName().toLowerCase().contains("scanner")){
-
                         //start service only if appropriate dev is found
                         startService(new Intent(this, RZ_BarcodeService.class));
                         finish();
